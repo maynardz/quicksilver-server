@@ -1,7 +1,8 @@
+const env = require('./env');
+
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('quicksilver', 'postgres', 'ZnM081417', { // add NAME and PASS to .env
-    host: 'localhost',
-    dialect: 'postgres'
+const sequelize = new Sequelize(env.DATABASE_URL, {
+    dialect: env.DATABASE_DIALECT
 })
 
 sequelize.authenticate()
