@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         updated_at: DataTypes.DATE,
-        deleted_at: DataTypes.DATE
     }, {
         underscored: true
     });
