@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         //     values: ['approved', 'rejected', 'in review']
 
         // },
+        upvote: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
         created_at: {
             type: DataTypes.DATE,
             allowNull: false

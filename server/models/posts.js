@@ -10,9 +10,24 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             allowNull: false
         },
-        content: {
+        user_username: {
+            type: DataTypes.STRING
+        },
+        language: {
+            type: DataTypes.ENUM,
+            values: ['JavaScript', '.Net', 'Python']
+        },
+        title: {
             type: DataTypes.TEXT,
             required: true
+        },
+        content: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        upvote: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         },
         created_at: {
             type: DataTypes.DATE,
