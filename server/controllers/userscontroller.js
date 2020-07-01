@@ -101,7 +101,6 @@ router.get('/users', (req, res) => {
                                             comment_id: comment.id,
                                             post_id: comment.post_id,
                                             commenter: comment.commenter_username,
-                                            commenter_email: comment.commenter_email,
                                             content: comment.content
                                         }
                                     )

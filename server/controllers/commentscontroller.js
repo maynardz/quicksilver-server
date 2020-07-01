@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const db = require('../config/db');
 
+// router.get('/comment'), (req, res) => {
+
+// }
+
 router.post('/comment', (req, res) => {
 
     const created_at = new Date();
