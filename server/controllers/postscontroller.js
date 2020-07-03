@@ -22,6 +22,7 @@ router.get('/post', (req, res) => {
                         title: post.title,
                         language: post.language,
                         content: post.content,
+                        upvote: post.upvote,
                         comments: post.comments.map(comment => {
 
                             // tidy up comment data
