@@ -23,6 +23,7 @@ router.get('/post', (req, res) => {
                         language: post.language,
                         content: post.content,
                         upvote: post.upvote,
+                        created_at: post.created_at,
                         comments: post.comments.map(comment => {
 
                             // tidy up comment data
@@ -76,6 +77,7 @@ router.put('/post/:post_id', (req, res) => {
     const updatePost = req.body.post;
 
     db.posts.update({
+        title: updatePost.title,
         content: updatePost.content,
         upvote: updatePost.upvote,
         updated_at: updated_at
