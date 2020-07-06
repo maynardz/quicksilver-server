@@ -80,6 +80,7 @@ router.put('/post/:post_id', (req, res) => {
         title: updatePost.title,
         content: updatePost.content,
         upvote: updatePost.upvote,
+        language: updatePost.language,
         updated_at: updated_at
     }, {
         where: {
