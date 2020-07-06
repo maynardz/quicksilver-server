@@ -21,6 +21,7 @@ router.post('/comment', (req, res) => {
     db.comments.create({
         post_id: newComment.post_id,
         content: newComment.content,
+        code: newComment.code,
         commenter_username: req.user.username,
         created_at: created_at
     })
@@ -37,6 +38,7 @@ router.put('/comment/:comment_id', (req, res) => {
 
     db.comments.update({
         content: updateComment.content,
+        code: updateComment.code,
         updated_at: updated_at
     }, {
         where: {

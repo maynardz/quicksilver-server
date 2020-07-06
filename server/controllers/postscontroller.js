@@ -3,6 +3,11 @@ const db = require('../config/db');
 
 // GET
 router.get('/post', (req, res) => {
+
+    function htmlEntities(str) {
+        return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+    }
+
     db.posts.findAll({
         include: [
             {
@@ -23,6 +28,7 @@ router.get('/post', (req, res) => {
                         language: post.language,
                         content: post.content,
                         upvote: post.upvote,
+                        code: htmlEntities(post.code),
                         created_at: post.created_at,
                         comments: post.comments.map(comment => {
 
@@ -51,7 +57,9 @@ router.post('/post', (req, res) => {
     const created_at = new Date();
     const newPost = req.body.post;
 
-    console.log(req)
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
     db.posts.create({
         user_id: req.user.id,
@@ -60,6 +68,7 @@ router.post('/post', (req, res) => {
         title: newPost.title,
         content: newPost.content,
         upvote: newPost.upvote,
+        code: htmlEntities(newPost.code),
         created_at: created_at
     })
         .then(post => {
@@ -81,6 +90,7 @@ router.put('/post/:post_id', (req, res) => {
         content: updatePost.content,
         upvote: updatePost.upvote,
         language: updatePost.language,
+        code: updatePost.code,
         updated_at: updated_at
     }, {
         where: {
