@@ -85,12 +85,16 @@ router.put('/post/:post_id', (req, res) => {
     const updated_at = new Date();
     const updatePost = req.body.post;
 
+    function htmlEntities(str) {
+        return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+    }
+
     db.posts.update({
         title: updatePost.title,
         content: updatePost.content,
         upvote: updatePost.upvote,
         language: updatePost.language,
-        code: updatePost.code,
+        code: htmlEntities(updatePost.code),
         updated_at: updated_at
     }, {
         where: {

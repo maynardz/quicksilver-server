@@ -15,13 +15,17 @@ router.get('/comment/:post_id', (req, res) => {
 
 router.post('/comment', (req, res) => {
 
+    function htmlEntities(str) {
+        return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+    }
+
     const created_at = new Date();
     const newComment = req.body.comment;
 
     db.comments.create({
         post_id: newComment.post_id,
         content: newComment.content,
-        code: newComment.code,
+        code: htmlEntities(newComment.code),
         commenter_username: req.user.username,
         created_at: created_at
     })
@@ -33,12 +37,16 @@ router.post('/comment', (req, res) => {
 // UPDATE
 router.put('/comment/:comment_id', (req, res) => {
 
+    function htmlEntities(str) {
+        return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+    }
+
     const updated_at = new Date();
     const updateComment = req.body.post;
 
     db.comments.update({
         content: updateComment.content,
-        code: updateComment.code,
+        code: htmlEntities(updateComment.code),
         updated_at: updated_at
     }, {
         where: {
