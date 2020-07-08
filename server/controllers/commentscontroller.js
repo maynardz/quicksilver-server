@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const db = require('../config/db');
+const validateSession = require('../middleware/validate-session');
 
 router.get('/comment/:post_id', (req, res) => {
     db.comments.findAll({
@@ -13,7 +14,7 @@ router.get('/comment/:post_id', (req, res) => {
         }))
 })
 
-router.post('/comment', (req, res) => {
+router.post('/comment', validateSession, (req, res) => {
 
     function htmlEntities(str) {
         return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
@@ -36,7 +37,7 @@ router.post('/comment', (req, res) => {
 });
 
 // UPDATE
-router.put('/comment/:comment_id', (req, res) => {
+router.put('/comment/:comment_id', validateSession, (req, res) => {
 
     function htmlEntities(str) {
         return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
@@ -61,7 +62,7 @@ router.put('/comment/:comment_id', (req, res) => {
 })
 
 // DELETE
-router.delete('/comment/:comment_id', (req, res) => {
+router.delete('/comment/:comment_id', validateSession, (req, res) => {
     db.comments.destroy({
         where: {
             id: req.params.comment_id

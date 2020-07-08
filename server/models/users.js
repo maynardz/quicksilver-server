@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         username: {
             type: DataTypes.STRING,
             required: true,
-            unique: true
+            unique: true,
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING,

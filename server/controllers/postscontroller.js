@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const db = require('../config/db');
+const validateSession = require('../middleware/validate-session')
 
 // GET
 router.get('/post', (req, res) => {
@@ -52,7 +53,7 @@ router.get('/post', (req, res) => {
 
 
 // POST
-router.post('/post', (req, res) => {
+router.post('/post', validateSession, (req, res) => {
 
     const created_at = new Date();
     const newPost = req.body.post;
@@ -80,7 +81,7 @@ router.post('/post', (req, res) => {
 });
 
 // UPDATE
-router.put('/post/:post_id', (req, res) => {
+router.put('/post/:post_id', validateSession, (req, res) => {
 
     const updated_at = new Date();
     const updatePost = req.body.post;
@@ -108,7 +109,7 @@ router.put('/post/:post_id', (req, res) => {
 })
 
 // DELETE
-router.delete('/post/:post_id', (req, res) => {
+router.delete('/post/:post_id', validateSession, (req, res) => {
     db.posts.destroy({
         where: {
             id: req.params.post_id
@@ -121,7 +122,7 @@ router.delete('/post/:post_id', (req, res) => {
 })
 
 // GET ALL BY LANGUAGE
-router.get('/post/:language', (req, res) => {
+router.get('/post/:language', validateSession, (req, res) => {
     db.posts.findAll({
         where: {
             language: req.params.language
