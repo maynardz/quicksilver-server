@@ -24,7 +24,8 @@ router.post('/comment', (req, res) => {
 
     db.comments.create({
         post_id: newComment.post_id,
-        content: newComment.content,
+        user_id: req.user.id,
+        content: htmlEntities(newComment.content),
         code: htmlEntities(newComment.code),
         commenter_username: req.user.username,
         created_at: created_at

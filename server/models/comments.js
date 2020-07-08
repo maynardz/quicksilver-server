@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             allowNull: false
         },
+        user_id: {
+            type: DataTypes.UUID,
+            allowNull: false
+        },
         content: {
             type: DataTypes.TEXT,
             required: true

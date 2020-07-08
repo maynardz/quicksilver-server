@@ -18,7 +18,7 @@ app.use(validateSession);
 app.use('/posts', posts);
 app.use('/comments', comments);
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({force: true}).then(() => {
     app.listen(PORT, () => {
       console.log('Express listening on port:', PORT);
   });

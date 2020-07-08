@@ -26,7 +26,7 @@ router.get('/post', (req, res) => {
                         user_username: post.user_username,
                         title: post.title,
                         language: post.language,
-                        content: post.content,
+                        content: htmlEntities(post.content),
                         upvote: post.upvote,
                         code: htmlEntities(post.code),
                         created_at: post.created_at,
@@ -66,7 +66,7 @@ router.post('/post', (req, res) => {
         user_username: req.user.username,
         language: newPost.language,
         title: newPost.title,
-        content: newPost.content,
+        content: htmlEntities(newPost.content),
         upvote: newPost.upvote,
         code: htmlEntities(newPost.code),
         created_at: created_at
