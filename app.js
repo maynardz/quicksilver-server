@@ -23,3 +23,5 @@ db.sequelize.sync().then(() => {
       console.log('Express listening on port:', PORT);
   });
 });
+
+// git test
