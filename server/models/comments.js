@@ -41,6 +41,14 @@ const Comments = db.define("comments", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-});
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  updated_at: DataTypes.DATE,
+  }, {
+  underscored: true
+  }
+);
 
 module.exports = Comments;
