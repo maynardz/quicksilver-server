@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const db = require('../config/db');
+const { models } = require('../models');
 const env = require('../config/env');
 const bcrpyt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -10,7 +10,7 @@ router.post('/signup', (req, res) => {
     const created_at = new Date();
     const newUser = req.body.user;
 
-    db.users.create({
+    models.UsersModel.create({
         username: newUser.username,
         password: bcrpyt.hashSync(newUser.password, 10),
         role: newUser.role,
@@ -35,7 +35,7 @@ router.post('/login', (req, res) => {
     const loginUser = req.body.user;
 
 
-    db.users.findOne({
+    models.UsersModel.findOne({
         where: {
             username: loginUser.username
         }
@@ -62,13 +62,13 @@ router.post('/login', (req, res) => {
 
 // GET
 router.get('/users', (req, res) => {
-    db.users.findAll({
+    models.UsersModel.findAll({
         include: [
             {
-                model: db.posts,
+                model: models.PostsModel,
                 include: [
                     {
-                        model: db.comments
+                        model: models.CommentsModel
                     }
                 ]
             }
