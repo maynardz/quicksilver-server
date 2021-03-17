@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const db = require('../config/db');
+const {models} = require('../models');
 const validateSession = require('../middleware/validate-session');
 
 router.get('/comment/:post_id', (req, res) => {
-    db.comments.findAll({
+    models.CommentsModel.findAll({
         where: {
             post_id: req.params.post_id
         }
@@ -23,7 +23,7 @@ router.post('/comment', validateSession, (req, res) => {
     const created_at = new Date();
     const newComment = req.body.comment;
 
-    db.comments.create({
+    models.CommentsModel.create({
         post_id: newComment.post_id,
         user_id: req.user.id,
         content: htmlEntities(newComment.content),
@@ -46,7 +46,7 @@ router.put('/comment/:comment_id', validateSession, (req, res) => {
     const updated_at = new Date();
     const updateComment = req.body.post;
 
-    db.comments.update({
+    models.CommentsModel.update({
         content: updateComment.content,
         code: htmlEntities(updateComment.code),
         updated_at: updated_at
@@ -63,7 +63,7 @@ router.put('/comment/:comment_id', validateSession, (req, res) => {
 
 // DELETE
 router.delete('/comment/:comment_id', validateSession, (req, res) => {
-    db.comments.destroy({
+    models.CommentsModel.destroy({
         where: {
             id: req.params.comment_id
         }

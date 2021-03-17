@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const db = require('../config/db');
-const validateSession = require('../middleware/validate-session')
+const {models} = require('../models');
+const validateSession = require('../middleware/validate-session');
+const { model } = require('../config/db');
 
 // GET
 router.get('/post', (req, res) => {
@@ -9,10 +10,10 @@ router.get('/post', (req, res) => {
         return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
     }
 
-    db.posts.findAll({
+    models.PostsModel.findAll({
         include: [
             {
-                model: db.comments
+                model: models.CommentsModel
             }
         ]
     })
@@ -62,7 +63,7 @@ router.post('/post', validateSession, (req, res) => {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    db.posts.create({
+    models.PostsModel.create({
         user_id: req.user.id,
         user_username: req.user.username,
         language: newPost.language,
@@ -90,7 +91,7 @@ router.put('/post/:post_id', validateSession, (req, res) => {
         return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
     }
 
-    db.posts.update({
+    models.PostsModel.update({
         title: updatePost.title,
         content: updatePost.content,
         upvote: updatePost.upvote,
@@ -110,7 +111,7 @@ router.put('/post/:post_id', validateSession, (req, res) => {
 
 // DELETE
 router.delete('/post/:post_id', validateSession, (req, res) => {
-    db.posts.destroy({
+    models.PostsModel.destroy({
         where: {
             id: req.params.post_id
         }
@@ -123,7 +124,7 @@ router.delete('/post/:post_id', validateSession, (req, res) => {
 
 // GET ALL BY LANGUAGE
 router.get('/post/:language', validateSession, (req, res) => {
-    db.posts.findAll({
+    models.PostsModel.findAll({
         where: {
             language: req.params.language
         }
