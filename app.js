@@ -21,7 +21,7 @@ app.use("/comments", comments);
 try {
   dbConnection
     .authenticate()
-    .then(async () => await dbConnection.sync())
+    .then(async () => await dbConnection.sync({force: true}))
     .then(() => {
       app.listen(PORT, () => {
         console.log(`[Server]: App is listening on ${PORT}`);
