@@ -1,6 +1,6 @@
 const env = {
   PORT: process.env.PORT || 3000,
-  DATABASE_URL: process.env.DATABASE_URL || 'postgres://postgres:lunacharliemira@localhost:5432/quicksilver',
+  DATABASE_URL: process.env.DATABASE_URL || 'postgres://postgres:lunacharliemira@localhost:5432/quicksilver&sslmode=require',
   DATABASE_NAME: process.env.DATABASE_NAME || 'quicksilver',
   DATABASE_HOST: process.env.DATABASE_HOST || 'localhost',
   DATABASE_USERNAME: process.env.DATABASE_USERNAME || 'postgres',
